@@ -1,0 +1,15 @@
+{
+  "name": "@akashthakur2701/zod",
+  "version": "1.0.0",
+  "description": "it is  a common module shared between all",
+  "license": "ISC",
+  "author": "akash",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "zod": "^3.25.67"
+  }
+}
