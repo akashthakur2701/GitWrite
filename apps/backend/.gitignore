@@ -19,7 +19,9 @@ node_modules/
 .env
 .env.production
 .dev.vars
-
+wrangler.jsonc
+wrangler.jsonc/
+/wrangler.jsonc
 # logs
 logs/
 *.log
@@ -34,4 +36,6 @@ lerna-debug.log*
 
 /src/generated/prisma
 /generated
-generated/
+generated/wrangler.jsonc
+wrangler.toml
+wrangler.jsonc
