@@ -5,12 +5,21 @@ import { BACKEND_URL } from "../config";
 export interface Blog {
     "content": string;
     "title": string;
-    "id": string
-    "createdAt": string
-    "published": boolean
+    "id": string;
+    "createdAt": string;
+    "published": boolean;
+    "excerpt"?: string;
+    "slug"?: string;
+    "views": number;
+    "likesCount": number;
+    "commentsCount": number;
+    "bookmarksCount": number;
+    "readTime"?: number;
     "author": {
-        "id": string
-        "name": string
+        "id": string;
+        "name": string;
+        "avatar"?: string;
+        "bio"?: string;
     }
 }
 

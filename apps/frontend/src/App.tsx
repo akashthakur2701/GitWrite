@@ -4,12 +4,21 @@ import { Signin } from './pages/Signin'
 import { Blog } from './pages/Blog'
 import { Blogs } from './pages/Blogs'
 import { Publish } from './pages/Publish'
+import { Landing } from './pages/Landing'
+import { Dashboard } from './pages/Dashboard'
 import { ErrorBoundary } from './components/ErrorBoundary'
+import { tokenUtils } from './utils/api'
 
-
+// Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const token = localStorage.getItem('token');
-  return token ? <>{children}</> : <Navigate to="/signin" replace />;
+  const isAuthenticated = tokenUtils.isValid();
+  return isAuthenticated ? <>{children}</> : <Navigate to="/landing" replace />;
+};
+
+// Public Route Component (redirect to dashboard if already logged in)
+const PublicRoute = ({ children }: { children: React.ReactNode }) => {
+  const isAuthenticated = tokenUtils.isValid();
+  return isAuthenticated ? <Navigate to="/dashboard" replace /> : <>{children}</>;
 };
 
 function App() {
@@ -17,21 +26,41 @@ function App() {
     <ErrorBoundary>
       <BrowserRouter>
         <Routes>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
+          {/* Public Routes */}
+          <Route path="/landing" element={<Landing />} />
+          <Route path="/signup" element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          } />
+          <Route path="/signin" element={
+            <PublicRoute>
+              <Signin />
+            </PublicRoute>
+          } />
+          
+          {/* Protected Routes */}
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/blogs" 
+            element={
+              <ProtectedRoute>
+                <Blogs />
+              </ProtectedRoute>
+            } 
+          />
           <Route 
             path="/blog/:id" 
             element={
               <ProtectedRoute>
                 <Blog />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/" 
-            element={
-              <ProtectedRoute>
-                <Blogs />
               </ProtectedRoute>
             } 
           />
@@ -43,7 +72,18 @@ function App() {
               </ProtectedRoute>
             } 
           />
-         
+          
+          {/* Root route - redirect based on authentication */}
+          <Route 
+            path="/" 
+            element={
+              tokenUtils.isValid() ? 
+                <Navigate to="/dashboard" replace /> : 
+                <Navigate to="/landing" replace />
+            } 
+          />
+          
+          {/* Catch all route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

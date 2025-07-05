@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@akashthakur2701/zod": "^1.0.1",
+    "@akashthakur2701/zod": "^1.0.3",
     "@tiptap/extension-bubble-menu": "^2.24.0",
     "@tiptap/extension-code-block-lowlight": "^2.24.0",
     "@tiptap/extension-heading": "^2.24.0",
