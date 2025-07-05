@@ -102,7 +102,7 @@ blogRouter.put('/', async (c: AppContext) => {
     const prisma = getPrisma(c);
     const body = await c.req.json();
     
-    // Validate input with Zod
+   
     const result = updatePostInput.safeParse(body);
     if (!result.success) {
       c.status(400);
