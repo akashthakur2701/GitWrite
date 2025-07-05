@@ -10,19 +10,144 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  email    String   @unique
-  name     String?
-  password String
-  posts    Post[]
+  id          String   @id @default(uuid())
+  email       String   @unique
+  name        String?
+  password    String
+  bio         String?
+  hobby       String?
+  avatar      String?
+  rating      Float    @default(0.0)
+  totalViews  Int      @default(0)
+  verified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  posts       Post[]
+  likes       Like[]
+  comments    Comment[]
+  bookmarks   Bookmark[]
+  followers   Follow[] @relation("UserFollowers")
+  following   Follow[] @relation("UserFollowing")
+  
+  @@map("users")
+}
+
+model Category {
+  id          String @id @default(uuid())
+  name        String @unique
+  slug        String @unique
+  description String?
+  color       String @default("#6B7280")
+  posts       Post[]
+  
+  @@map("categories")
+}
+
+model Tag {
+  id    String    @id @default(uuid())
+  name  String    @unique
+  slug  String    @unique
+  posts PostTag[]
+  
+  @@map("tags")
 }
 
 model Post {
-  id        String   @id @default(uuid())
-  title     String
-  content   String
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
+  id              String   @id @default(uuid())
+  title           String
+  content         String
+  excerpt         String?
+  slug            String   @unique
+  published       Boolean  @default(false)
+  featured        Boolean  @default(false)
+  readTime        Int      @default(5) // in minutes
+  views           Int      @default(0)
+  likesCount      Int      @default(0)
+  commentsCount   Int      @default(0)
+  bookmarksCount  Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  publishedAt     DateTime?
+  
+  // Relations
+  author          User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId        String
+  category        Category?  @relation(fields: [categoryId], references: [id])
+  categoryId      String?
+  tags            PostTag[]
+  likes           Like[]
+  comments        Comment[]
+  bookmarks       Bookmark[]
+  
+  @@map("posts")
+}
+
+model PostTag {
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId  String
+  
+  @@id([postId, tagId])
+  @@map("post_tags")
+}
+
+model Like {
+  id     String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
   createdAt DateTime @default(now())
+  
+  @@unique([userId, postId])
+  @@map("likes")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id])
+  parentId  String?
+  replies   Comment[] @relation("CommentReplies")
+  
+  @@map("comments")
+}
+
+model Bookmark {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  
+  @@unique([userId, postId])
+  @@map("bookmarks")
+}
+
+model Follow {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  follower    User     @relation("UserFollowing", fields: [followerId], references: [id], onDelete: Cascade)
+  followerId  String
+  following   User     @relation("UserFollowers", fields: [followingId], references: [id], onDelete: Cascade)
+  followingId String
+  
+  @@unique([followerId, followingId])
+  @@map("follows")
 }
