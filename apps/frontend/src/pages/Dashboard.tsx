@@ -85,10 +85,10 @@ export const Dashboard = () => {
     }
   };
 
-  const handleLogout = () => {
-    tokenUtils.remove();
-    navigate('/landing');
-  };
+  // const handleLogout = () => {
+  //   tokenUtils.remove();
+  //   navigate('/landing');
+  // };
 
   const handleUpdateProfile = async () => {
     try {

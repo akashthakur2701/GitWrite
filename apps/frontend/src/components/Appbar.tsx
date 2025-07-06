@@ -14,7 +14,7 @@ export const Appbar = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
+ 
   const isAuthenticated = tokenUtils.isValid();
 
   useEffect(() => {
