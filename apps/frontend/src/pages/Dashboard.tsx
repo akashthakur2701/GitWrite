@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { tokenUtils, apiClient, handleApiError } from '../utils/api';
 import type { ApiResponse } from '../hooks';
+import { Appbar } from '../components/Appbar';
 
 interface UserProfile {
   id: string;
@@ -137,45 +138,11 @@ export const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Use Appbar at the top */}
+      <Appbar />
+      {/* Remove the custom header/navbar here */}
       {/* Header */}
-      <div className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
-            <div className="flex justify-start lg:w-0 lg:flex-1">
-              <Link to="/dashboard">
-                <span className="text-2xl font-bold text-blue-600">✍️ GitWrite</span>
-              </Link>
-            </div>
-            <nav className="hidden md:flex space-x-10">
-              <Link to="/dashboard" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                Dashboard
-              </Link>
-              <Link to="/publish" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                Write
-              </Link>
-              <Link to="/blogs" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                Explore
-              </Link>
-            </nav>
-            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 space-x-4">
-              <div className="flex items-center space-x-2">
-                <img
-                  className="h-8 w-8 rounded-full"
-                  src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.name}&background=3B82F6&color=fff`}
-                  alt={user?.name}
-                />
-                <span className="text-sm font-medium text-gray-700">{user?.name}</span>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* <div className="bg-white shadow"> ... </div> */}
 
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         {/* Profile Header */}

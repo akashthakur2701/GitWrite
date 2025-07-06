@@ -37,7 +37,7 @@ blogRouter.post('/', async (c: AppContext) => {
       });
     }
     
-    const { title, content } = result.data;
+    const { title, content, excerpt, categoryId, tags } = result.data;
     const authorId = c.get("userId");
     
    
@@ -56,12 +56,47 @@ blogRouter.post('/', async (c: AppContext) => {
     }
     
 
+    // Generate slug from title
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    
+    // Handle tags if provided
+    let tagConnections = [];
+    if (tags && tags.length > 0) {
+      // Create or find tags and prepare connections
+      for (const tagName of tags) {
+        const tagSlug = tagName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        
+        // Find or create tag
+        let tag = await prisma.tag.findUnique({
+          where: { slug: tagSlug }
+        });
+        
+        if (!tag) {
+          tag = await prisma.tag.create({
+            data: {
+              name: tagName,
+              slug: tagSlug
+            }
+          });
+        }
+        
+        tagConnections.push({ tagId: tag.id });
+      }
+    }
+    
+    // Create post with all fields and tags
     const blog = await prisma.post.create({
       data: {
         title,
         content,
+        excerpt: excerpt || null,
         authorId,
-        published: true 
+        slug,
+        published: true,
+        categoryId: categoryId || null,
+        tags: tagConnections.length > 0 ? {
+          create: tagConnections
+        } : undefined
       },
       select: {
         id: true,

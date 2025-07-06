@@ -10,15 +10,23 @@ type AppContext = Context<{
   };
 }>;
 
-// Create a singleton pattern for Prisma client to avoid multiple instances
-const prismaInstances = new WeakMap<Env, PrismaClient>();
+// Global Prisma client instance
+let prisma: PrismaClient | null = null;
 
 export const getPrisma = (c: AppContext) => {
-  if (!prismaInstances.has(c.env)) {
-    const prisma = new PrismaClient({
+  if (!prisma) {
+    prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-    prismaInstances.set(c.env, prisma);
   }
-  return prismaInstances.get(c.env)!;
+  
+  return prisma;
 }
+
+// Cleanup function for graceful shutdown
+export const cleanupPrisma = async () => {
+  if (prisma) {
+    await prisma.$disconnect();
+    prisma = null;
+  }
+};

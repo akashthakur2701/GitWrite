@@ -39,12 +39,12 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             
             if (response.data.success && response.data.data) {
                 localStorage.setItem("token", response.data.data.token);
-                navigate("/");
+                navigate("/dashboard");
             } else {
                 setGeneralError(response.data.message || "Authentication failed");
             }
         } catch (error) {
-            const axiosError = error as AxiosError<ApiResponse<any>>;
+            const axiosError = error as AxiosError<ApiResponse<unknown>>;
             if (axiosError.response?.data) {
                 const errorData = axiosError.response.data;
                 if (errorData.errors) {

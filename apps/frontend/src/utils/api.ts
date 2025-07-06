@@ -24,7 +24,7 @@ apiClient.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error: AxiosError<ApiResponse<any>>) => {
+  (error: AxiosError<ApiResponse<unknown>>) => {
   
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
@@ -37,7 +37,7 @@ apiClient.interceptors.response.use(
 );
 
 
-export const handleApiError = (error: AxiosError<ApiResponse<any>>): string => {
+export const handleApiError = (error: AxiosError<ApiResponse<unknown>>): string => {
   if (error.response?.data?.message) {
     return error.response.data.message;
   }
@@ -59,9 +59,19 @@ export const tokenUtils = {
     if (!token) return false;
     
     try {
-    
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.exp * 1000 > Date.now();
+      // Check if token has 3 parts (header.payload.signature)
+      const parts = token.split('.');
+      if (parts.length !== 3) return false;
+      
+      const payload = JSON.parse(atob(parts[1]));
+      
+      // If token has expiration, check it
+      if (payload.exp) {
+        return payload.exp * 1000 > Date.now();
+      }
+      
+      // If no expiration, check if payload has required fields
+      return payload.id && typeof payload.id === 'string';
     } catch {
       return false;
     }

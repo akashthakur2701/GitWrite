@@ -17,7 +17,8 @@ const nameSchema = z.string()
   .min(1, 'Name is required')
   .max(100, 'Name must be less than 100 characters')
   .regex(/^[a-zA-Z\s]+$/, 'Name can only contain letters and spaces')
-  .optional();
+  .optional()
+  .or(z.literal(''));
 
 
 const titleSchema = z.string()

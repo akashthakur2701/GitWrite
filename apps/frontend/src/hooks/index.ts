@@ -15,6 +15,12 @@ export interface Blog {
     "commentsCount": number;
     "bookmarksCount": number;
     "readTime"?: number;
+    "featuredImage"?: string;
+    "tags"?: Array<{
+        "id": string;
+        "name": string;
+        "slug": string;
+    }>;
     "author": {
         "id": string;
         "name": string;
@@ -61,7 +67,7 @@ export const useBlog = ({ id }: { id: string }) => {
                     `${BACKEND_URL}/api/v1/blog/${id}`, 
                     {
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem("token")}` || ""
+                            Authorization: `Bearer ${localStorage.getItem("token")}`
                         }
                     }
                 );
@@ -72,7 +78,7 @@ export const useBlog = ({ id }: { id: string }) => {
                     setError(response.data.message || 'Failed to fetch blog');
                 }
             } catch (err) {
-                const axiosError = err as AxiosError<ApiResponse<any>>;
+                const axiosError = err as AxiosError<ApiResponse<unknown>>;
                 setError(
                     axiosError.response?.data?.message || 
                     'Network error occurred while fetching blog'
@@ -94,6 +100,7 @@ export const useBlog = ({ id }: { id: string }) => {
         error
     };
 };
+
 export const useBlogs = (page: number = 1, limit: number = 10) => {
     const [loading, setLoading] = useState(true);
     const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -117,7 +124,7 @@ export const useBlogs = (page: number = 1, limit: number = 10) => {
                     {
                         params: { page, limit },
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem("token")}` || ""
+                            Authorization: `Bearer ${localStorage.getItem("token")}`
                         }
                     }
                 );
@@ -129,7 +136,7 @@ export const useBlogs = (page: number = 1, limit: number = 10) => {
                     setError(response.data.message || 'Failed to fetch blogs');
                 }
             } catch (err) {
-                const axiosError = err as AxiosError<ApiResponse<any>>;
+                const axiosError = err as AxiosError<ApiResponse<unknown>>;
                 setError(
                     axiosError.response?.data?.message || 
                     'Network error occurred while fetching blogs'

@@ -24,12 +24,29 @@ coming soon
 
 | Layer        | Tech Stack                                 |
 |--------------|---------------------------------------------|
-| Frontend     | React, TypeScript                          |
+| Frontend     | React, TypeScript, Vite, Tailwind CSS      |
 | Backend      | Cloudflare Workers (Hono), TypeScript      |
 | Validation   | Zod (shared between frontend and backend)  |
 | Auth         | JWT, bcrypt                                |
 | ORM/DB       | Prisma ORM, PostgreSQL                     |
 | Deployment   | Vercel (Frontend), Cloudflare (Backend)    |
+
+## Database Schema
+
+Below is the current database schema for GitWrite, managed with Prisma ORM and PostgreSQL. This schema supports users, posts, comments, likes, bookmarks, follows, categories, tags, and post-tag relationships.
+
+![Database Schema]
+
+
+- **users**: Stores user profiles, authentication, and metadata.
+- **posts**: Blog posts with author, category, and stats.
+- **comments**: Nested comments on posts.
+- **likes**: Tracks which users liked which posts.
+- **bookmarks**: Tracks which users bookmarked which posts.
+- **follows**: User following relationships.
+- **categories**: Post categories.
+- **tags**: Post tags.
+- **post_tags**: Many-to-many relationship between posts and tags.
 
 ## Project Structure
 

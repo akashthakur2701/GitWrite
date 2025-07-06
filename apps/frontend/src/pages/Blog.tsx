@@ -1,15 +1,24 @@
 import { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Appbar } from "../components/Appbar";
 import { Avatar } from "../components/BlogCard";
-import { Spinner } from "../components/Spinner";
 import { useBlog } from "../hooks";
 import { apiClient } from "../utils/api";
 import DOMPurify from "dompurify";
 
+interface Comment {
+  id: string;
+  content: string;
+  author: {
+    id: string;
+    name: string;
+    avatar?: string;
+  };
+  createdAt: string;
+}
+
 export const Blog = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { loading, blog, error } = useBlog({ id: id || "" });
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -17,7 +26,7 @@ export const Blog = () => {
   const [likesCount, setLikesCount] = useState(0);
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState<any[]>([]);
+  const [comments] = useState<Comment[]>([]);
 
   useEffect(() => {
     if (blog) {
@@ -28,7 +37,7 @@ export const Blog = () => {
 
   const handleLike = async () => {
     try {
-      await apiClient.post(`/api/v1/blog/${id}/like`);
+      await apiClient.post(`/api/v1/like/${id}`);
       setIsLiked(!isLiked);
       setLikesCount(prev => isLiked ? prev - 1 : prev + 1);
     } catch (error) {
@@ -38,7 +47,7 @@ export const Blog = () => {
 
   const handleBookmark = async () => {
     try {
-      await apiClient.post(`/api/v1/blog/${id}/bookmark`);
+      await apiClient.post(`/api/v1/bookmark/${id}`);
       setIsBookmarked(!isBookmarked);
     } catch (error) {
       console.error('Failed to bookmark blog:', error);
@@ -47,7 +56,7 @@ export const Blog = () => {
 
   const handleFollow = async () => {
     try {
-      await apiClient.post(`/api/v1/user/${blog?.author?.id}/follow`);
+      await apiClient.post(`/api/v1/follow/${blog?.author?.id}`);
       setIsFollowing(!isFollowing);
     } catch (error) {
       console.error('Failed to follow user:', error);
@@ -77,8 +86,9 @@ export const Blog = () => {
     if (!newComment.trim()) return;
 
     try {
-      await apiClient.post(`/api/v1/blog/${id}/comments`, {
-        content: newComment
+      await apiClient.post(`/api/v1/comment`, {
+        content: newComment,
+        postId: id
       });
       setNewComment("");
       // Refresh comments or add to local state

@@ -7,7 +7,11 @@ export const errorHandler = async (c: Context, next: () => Promise<void>) => {
   } catch (err) {
     console.error('Unhandled error in route:', err);
     c.status(500);
-    c.json({ message: 'Internal Server Error', error: err instanceof Error ? err.message : 'Unknown error' });
+    return c.json({ 
+      success: false,
+      message: 'Internal Server Error', 
+      error: err instanceof Error ? err.message : 'Unknown error' 
+    });
   }
 };
 

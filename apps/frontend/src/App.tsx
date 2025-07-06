@@ -6,6 +6,7 @@ import { Blogs } from './pages/Blogs'
 import { Publish } from './pages/Publish'
 import { Landing } from './pages/Landing'
 import { Dashboard } from './pages/Dashboard'
+import { UserProfile } from './pages/UserProfile'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { tokenUtils } from './utils/api'
 
@@ -69,6 +70,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Publish />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/user/:userId" 
+            element={
+              <ProtectedRoute>
+                <UserProfile />
               </ProtectedRoute>
             } 
           />

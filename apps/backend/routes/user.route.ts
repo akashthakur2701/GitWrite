@@ -334,4 +334,93 @@ userRouter.get('/stats', async (c: AppContext) => {
   }
 });
 
+// Get public user profile (no auth required)
+userRouter.get('/public/:userId', async (c: AppContext) => {
+  try {
+    const prisma = getPrisma(c);
+    const userId = c.req.param('userId');
+    
+    // Validate user ID format
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!userId || !uuidRegex.test(userId)) {
+      c.status(400);
+      return c.json({
+        success: false,
+        message: "Invalid user ID format",
+        error: "INVALID_USER_ID"
+      });
+    }
+    
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        bio: true,
+        hobby: true,
+        avatar: true,
+        rating: true,
+        totalViews: true,
+        verified: true,
+        createdAt: true,
+        _count: {
+          select: {
+            posts: true,
+            followers: true,
+            following: true
+          }
+        }
+      }
+    });
+
+    if (!user) {
+      c.status(404);
+      return c.json({
+        success: false,
+        message: "User not found",
+        error: "USER_NOT_FOUND"
+      });
+    }
+
+    // Get recent posts by this user
+    const recentPosts = await prisma.post.findMany({
+      where: { 
+        authorId: userId,
+        published: true 
+      },
+      select: {
+        id: true,
+        title: true,
+        excerpt: true,
+        slug: true,
+        createdAt: true,
+        views: true,
+        likesCount: true,
+        commentsCount: true,
+        readTime: true
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 5
+    });
+
+    return c.json({
+      success: true,
+      message: "Public user profile fetched successfully",
+      data: {
+        user,
+        recentPosts
+      }
+    });
+  } catch (error) {
+    console.error('Public profile fetch error:', error);
+    c.status(500);
+    return c.json({
+      success: false,
+      message: "Internal server error while fetching public profile",
+      error: "PUBLIC_PROFILE_FETCH_FAILED"
+    });
+  }
+});
+
 export default userRouter ;

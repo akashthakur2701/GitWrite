@@ -2,19 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="GitWrite is a blazing-fast, full-stack, serverless blogging platform inspired by Medium. Share your ideas, discover stories, and connect with writers worldwide." />
+    <meta name="theme-color" content="#3B82F6" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gitwrite.vercel.app/" />
+    <meta property="og:title" content="GitWrite | Share Your Ideas" />
+    <meta property="og:description" content="A modern, full-stack blogging platform for creators and readers." />
+    <meta property="og:image" content="/og-image.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://gitwrite.vercel.app/" />
+    <meta name="twitter:title" content="GitWrite | Share Your Ideas" />
+    <meta name="twitter:description" content="A modern, full-stack blogging platform for creators and readers." />
+    <meta name="twitter:image" content="/og-image.png" />
 
     <title>GitWrite | Share Your Ideas</title>
 
-   
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-    
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" integrity="sha512-4WaGlrS28hXljRDIFcuYClcJ3IQlcyK1Ju9ZsTrwcf+m3/V+XN/btvb8LY6wSk8LkG+tNxnDp8VX6RNHpqOE8Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body style="margin: 0; font-family: 'Inter', sans-serif; background-color: #f9f9f9;">
-    <div id="root"></div>
+    <div id="root" aria-label="GitWrite Application Root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
