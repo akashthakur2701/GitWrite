@@ -14,20 +14,7 @@ const app = new Hono<{ Bindings: Env }>();
 
 app.use(
   '*',
-  cors({
-    origin: (origin) => {
-      // Allow localhost for dev and your Vercel/custom domain for prod
-      const allowed = [
-        'http://localhost:5173',
-        'https://your-vercel-frontend.vercel.app',
-        'https://your-custom-domain.com'
-      ];
-      return allowed.includes(origin) ? origin : '';
-    },
-    credentials: true,
-    allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization'],
-  })
+  cors()
 );
 
 
