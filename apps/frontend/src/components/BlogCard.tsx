@@ -119,51 +119,51 @@ export const BlogCard = ({ blog, onLike, onBookmark }: BlogCardProps) => {
   return (
     <article className="group cursor-pointer mb-6">
       <Link to={`/blog/${blog.id}`} className="block">
-        <div className="flex gap-6 p-6 shadow-sm transition-all duration-200 hover:shadow-lg hover:scale-105 hover:z-20 relative">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 p-4 sm:p-6 shadow-sm transition-all duration-200 hover:shadow-lg hover:scale-105 hover:z-20 relative bg-white rounded-lg">
           {/* Content Section */}
           <div className="flex-1 min-w-0">
             {/* Author Info */}
-            <div className="flex items-center space-x-3 mb-4">
+            <div className="flex items-center space-x-3 mb-3 sm:mb-4">
               <Avatar 
                 name={blog.author?.name || "Anonymous"} 
                 avatar={blog.author?.avatar}
                 size="small" 
               />
-              <div className="flex items-center space-x-2 text-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 text-sm">
                 <span className="font-medium text-gray-900">
                   {blog.author?.name || "Anonymous"}
                 </span>
-                <span className="text-gray-400">·</span>
-                <time className="text-gray-500" dateTime={blog.createdAt}>
+                <span className="hidden sm:inline text-gray-400">·</span>
+                <time className="text-gray-500 text-xs sm:text-sm" dateTime={blog.createdAt}>
                   {formatDate(blog.createdAt)}
                 </time>
               </div>
             </div>
 
             {/* Title and Excerpt */}
-            <div className="space-y-3 mb-4">
-              <h2 className="text-2xl font-extrabold text-gray-900 line-clamp-2 group-hover:text-blue-600 group-hover:underline transition-colors leading-tight">
+            <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-extrabold text-gray-900 line-clamp-2 group-hover:text-blue-600 group-hover:underline transition-colors leading-tight">
                 {blog.title}
               </h2>
-              <p className="text-gray-600 line-clamp-2 text-base leading-relaxed">
+              <p className="text-gray-600 line-clamp-2 text-sm sm:text-base leading-relaxed">
                 {getExcerpt()}
               </p>
               <span className="inline-block mt-1 text-blue-600 text-sm font-medium group-hover:underline">Read More →</span>
             </div>
 
             {/* Footer Stats */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4 text-sm text-gray-500">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+              <div className="flex items-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-gray-500">
                 <span>{calculateReadTime(blog.content)} min read</span>
                 {blog.views > 0 && (
                   <>
-                    <span>·</span>
+                    <span className="hidden sm:inline">·</span>
                     <span>{blog.views.toLocaleString()} views</span>
                   </>
                 )}
                 {blog.commentsCount > 0 && (
                   <>
-                    <span>·</span>
+                    <span className="hidden sm:inline">·</span>
                     <span>{blog.commentsCount} comments</span>
                   </>
                 )}
@@ -175,17 +175,17 @@ export const BlogCard = ({ blog, onLike, onBookmark }: BlogCardProps) => {
                 <button
                   onClick={handleLike}
                   disabled={loading.like}
-                  className={`flex items-center space-x-1 px-3 py-1.5 rounded-full text-sm transition-all duration-200 disabled:opacity-50 transform hover:scale-110 active:scale-95 ${
+                  className={`flex items-center space-x-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm transition-all duration-200 disabled:opacity-50 transform hover:scale-110 active:scale-95 ${
                     isLiked
                       ? 'text-red-600 bg-red-50 hover:bg-red-100'
                       : 'text-gray-500 hover:text-red-600 hover:bg-gray-100'
                   }`}
                 >
                   {loading.like ? (
-                    <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
                   ) : (
                     <svg 
-                      className={`w-4 h-4 ${
+                      className={`w-3 h-3 sm:w-4 sm:h-4 ${
                         isLiked ? 'fill-current' : 'fill-none'
                       }`} 
                       stroke="currentColor" 
@@ -206,17 +206,17 @@ export const BlogCard = ({ blog, onLike, onBookmark }: BlogCardProps) => {
                 <button
                   onClick={handleBookmark}
                   disabled={loading.bookmark}
-                  className={`flex items-center space-x-1 px-3 py-1.5 rounded-full text-sm transition-all duration-200 disabled:opacity-50 transform hover:scale-110 active:scale-95 ${
+                  className={`flex items-center space-x-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm transition-all duration-200 disabled:opacity-50 transform hover:scale-110 active:scale-95 ${
                     isBookmarked
                       ? 'text-blue-600 bg-blue-50 hover:bg-blue-100'
                       : 'text-gray-500 hover:text-blue-600 hover:bg-gray-100'
                   }`}
                 >
                   {loading.bookmark ? (
-                    <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
                   ) : (
                     <svg 
-                      className={`w-4 h-4 ${
+                      className={`w-3 h-3 sm:w-4 sm:h-4 ${
                         isBookmarked ? 'fill-current' : 'fill-none'
                       }`} 
                       stroke="currentColor" 
@@ -237,7 +237,7 @@ export const BlogCard = ({ blog, onLike, onBookmark }: BlogCardProps) => {
 
           {/* Optional Featured Image */}
           {blog.featuredImage && (
-            <div className="flex-shrink-0 w-32 h-24 rounded-lg overflow-hidden bg-gray-200">
+            <div className="flex-shrink-0 w-full sm:w-32 h-32 sm:h-24 rounded-lg overflow-hidden bg-gray-200 order-first sm:order-last">
               <img
                 src={blog.featuredImage}
                 alt={blog.title}

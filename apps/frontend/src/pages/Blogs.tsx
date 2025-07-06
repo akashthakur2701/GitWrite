@@ -132,12 +132,12 @@ export const Blogs = () => {
       
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
           <div className="text-center">
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3 leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
               Discover Stories That Matter
             </h1>
-            <p className="text-base sm:text-lg text-blue-100 mb-6 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg text-blue-100 mb-6 max-w-2xl mx-auto leading-relaxed">
               Explore insightful articles from talented writers around the world. Find stories that inspire, educate, and entertain.
             </p>
             {/* Search Bar */}
@@ -162,28 +162,28 @@ export const Blogs = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
           {/* Sidebar */}
-          <aside className="lg:col-span-1 w-full max-w-xs space-y-6 sticky top-24 self-start h-[calc(100vh-6rem)] overflow-y-auto custom-scrollbar">
+          <aside className="lg:col-span-1 w-full space-y-4 lg:space-y-6 lg:sticky lg:top-24 lg:self-start lg:h-[calc(100vh-6rem)] lg:overflow-y-auto custom-scrollbar">
             {/* Categories */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center">
                 <span className="mr-2">📂</span>
                 Categories
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-1 sm:space-y-2">
                 {categories.map((category) => (
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-110 ${
+                    className={`w-full flex items-center space-x-2 sm:space-x-3 px-2 sm:px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 transform hover:scale-110 ${
                       selectedCategory === category.id
                         ? 'bg-blue-50 text-blue-700 border border-blue-200'
                         : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                     }`}
                   >
-                    <span className="text-lg">{category.icon}</span>
+                    <span className="text-base sm:text-lg">{category.icon}</span>
                     <span>{category.name}</span>
                   </button>
                 ))}
@@ -191,13 +191,13 @@ export const Blogs = () => {
             </div>
 
             {/* Sort Option - moved below categories */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-              <label htmlFor="sort" className="block text-sm font-medium text-gray-700 mb-2">Sort by:</label>
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100">
+              <label htmlFor="sort" className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Sort by:</label>
               <select
                 id="sort"
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value)}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+                className="block w-full px-2 sm:px-3 py-2 border border-gray-300 rounded-lg text-xs sm:text-sm focus:ring-blue-500 focus:border-blue-500"
               >
                 {sortOptions.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
@@ -206,20 +206,20 @@ export const Blogs = () => {
             </div>
 
             {/* Staff Picks */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center">
                 <span className="mr-2">⭐</span>
                 Staff Picks
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {staffPicks.map((pick) => (
                   <div key={pick.id} className="group cursor-pointer">
-                    <h4 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
+                    <h4 className="text-xs sm:text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
                       {pick.title}
                     </h4>
                     <div className="flex items-center justify-between text-xs text-gray-500">
                       <span>{pick.author}</span>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-1 sm:space-x-2">
                         <span>{pick.readTime}</span>
                         <span>·</span>
                         <span>{pick.views}</span>
@@ -231,16 +231,16 @@ export const Blogs = () => {
             </div>
 
             {/* Trending Topics */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center">
                 <span className="mr-2">🔥</span>
                 Trending Topics
               </h3>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1 sm:gap-2">
                 {trendingTopics.map((topic, index) => (
                   <button
                     key={index}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full hover:bg-gray-200 transition-colors"
+                    className="px-2 sm:px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full hover:bg-gray-200 transition-colors"
                   >
                     {topic}
                   </button>
@@ -249,15 +249,15 @@ export const Blogs = () => {
             </div>
 
             {/* Quote of the Day */}
-            <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 shadow-sm border border-purple-100">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-4 sm:p-6 shadow-sm border border-purple-100">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center">
                 <span className="mr-2">💭</span>
                 Quote of the Day
               </h3>
-              <blockquote className="text-gray-700 italic mb-3">
+              <blockquote className="text-sm sm:text-base text-gray-700 italic mb-3">
                 "{quotes[0].text}"
               </blockquote>
-              <cite className="text-sm text-gray-500">— {quotes[0].author}</cite>
+              <cite className="text-xs sm:text-sm text-gray-500">— {quotes[0].author}</cite>
             </div>
           </aside>
 
@@ -265,14 +265,14 @@ export const Blogs = () => {
           <div className="lg:col-span-3 relative overflow-visible">
             {/* Error State */}
         {error && (
-              <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-8">
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8">
             <div className="flex">
-                  <svg className="h-6 w-6 text-red-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 sm:h-6 sm:w-6 text-red-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-semibold text-red-800">Error loading stories</h3>
-                    <p className="text-red-700 mt-1">{error}</p>
+                  <div className="ml-3 sm:ml-4">
+                    <h3 className="text-base sm:text-lg font-semibold text-red-800">Error loading stories</h3>
+                    <p className="text-sm sm:text-base text-red-700 mt-1">{error}</p>
               </div>
             </div>
           </div>
@@ -280,14 +280,14 @@ export const Blogs = () => {
 
             {/* Empty State */}
         {filteredBlogs.length === 0 && !loading && (
-              <div className="text-center py-16 bg-white rounded-xl shadow-sm border border-gray-100">
-                <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                  <svg className="h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="text-center py-12 sm:py-16 bg-white rounded-xl shadow-sm border border-gray-100">
+                <div className="mx-auto w-16 h-16 sm:w-24 sm:h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4 sm:mb-6">
+                  <svg className="h-8 w-8 sm:h-12 sm:w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
             </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">No stories found</h3>
-                <p className="text-gray-600 max-w-md mx-auto">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">No stories found</h3>
+                <p className="text-sm sm:text-base text-gray-600 max-w-md mx-auto px-4">
               {searchQuery 
                     ? `No stories match "${searchQuery}". Try adjusting your search terms or browse our categories.`
                     : "No stories available yet. Be the first to share your story and inspire others!"
@@ -299,7 +299,7 @@ export const Blogs = () => {
             {/* Blog List */}
         {filteredBlogs.length > 0 && (
           <>
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {filteredBlogs.map((blog) => (
                     <BlogCard
                       key={blog.id}
@@ -312,12 +312,12 @@ export const Blogs = () => {
 
             {/* Pagination */}
             {pagination && pagination.totalPages > 1 && (
-                  <div className="mt-8 flex justify-center">
-                    <nav className="flex items-center space-x-2">
+                  <div className="mt-6 sm:mt-8 flex justify-center">
+                    <nav className="flex items-center space-x-1 sm:space-x-2">
                       <button
                         onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                         disabled={currentPage === 1}
-                        className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         Previous
                       </button>
@@ -328,7 +328,7 @@ export const Blogs = () => {
                           <button
                             key={page}
                             onClick={() => setCurrentPage(page)}
-                            className={`px-3 py-2 text-sm font-medium rounded-lg ${
+                            className={`px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium rounded-lg ${
                               currentPage === page
                                 ? 'bg-blue-600 text-white'
                                 : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
@@ -342,7 +342,7 @@ export const Blogs = () => {
                       <button
                         onClick={() => setCurrentPage(Math.min(pagination.totalPages, currentPage + 1))}
                         disabled={currentPage === pagination.totalPages}
-                        className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         Next
                       </button>
