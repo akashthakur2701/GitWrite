@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { tokenUtils, apiClient } from "../utils/api";
 import type { ApiResponse } from "../hooks";
 

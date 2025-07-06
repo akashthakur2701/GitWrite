@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { tokenUtils, apiClient, handleApiError } from '../utils/api';
+import { Link } from 'react-router-dom';
+import {  apiClient, handleApiError } from '../utils/api';
 import type { ApiResponse } from '../hooks';
 import { Appbar } from '../components/Appbar';
 
@@ -42,8 +42,7 @@ export const Dashboard = () => {
   const [stats, setStats] = useState<UserStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'profile' | 'analytics' | 'posts'>('overview');
-  const navigate = useNavigate();
-
+  
   // Profile edit states
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
@@ -85,10 +84,6 @@ export const Dashboard = () => {
     }
   };
 
-  // const handleLogout = () => {
-  //   tokenUtils.remove();
-  //   navigate('/landing');
-  // };
 
   const handleUpdateProfile = async () => {
     try {
