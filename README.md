@@ -35,7 +35,7 @@ coming soon
 
 Below is the current database schema for GitWrite, managed with Prisma ORM and PostgreSQL. This schema supports users, posts, comments, likes, bookmarks, follows, categories, tags, and post-tag relationships.
 
-![Database Schema]
+![Database Schema](./apps/frontend/public/schema.png)
 
 
 - **users**: Stores user profiles, authentication, and metadata.
