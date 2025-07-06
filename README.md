@@ -5,14 +5,13 @@
 
 ## Demo
 
-Insert gif or link to demo
+[🔗](https://git-write.vercel.app/)
 
-coming soon
 ## 🚀 Features
 
 - 🔐 **User Authentication** – Secure login and signup using **JWT** and **bcrypt** password hashing
 - 📝 **Create, Edit, Delete Posts** – Authenticated users can fully manage their articles
-- 💬 **Rich Text Writing** – Clean writing experience (Markdown/editor support coming soon)
+- 💬 **Rich Text Writing** – Clean writing experience (Markdown/editor support)
 - 🌐 **Serverless Backend** – Powered by **Cloudflare Workers** for edge performance
 - 🔄 **Shared Zod Validation** – Single source of truth for validation and types
 - 🧠 **TypeScript Everywhere** – Full type safety across backend and frontend
