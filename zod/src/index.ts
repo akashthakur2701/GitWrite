@@ -51,7 +51,8 @@ export const postInput = z.object({
   content: contentSchema,
   excerpt: z.string().max(300, 'Excerpt must be less than 300 characters').optional(),
   categoryId: uuidSchema.optional(),
-  tags: z.array(z.string().min(1).max(50)).max(10, 'Maximum 10 tags allowed').optional()
+  tags: z.array(z.string().min(1).max(50)).max(10, 'Maximum 10 tags allowed').optional(),
+  published: z.boolean().optional()
 });
 
 export const updatePostInput = z.object({
@@ -60,7 +61,8 @@ export const updatePostInput = z.object({
   excerpt: z.string().max(300, 'Excerpt must be less than 300 characters').optional(),
   categoryId: uuidSchema.optional(),
   tags: z.array(z.string().min(1).max(50)).max(10, 'Maximum 10 tags allowed').optional(),
-  id: uuidSchema
+  id: uuidSchema,
+  published: z.boolean().optional()
 });
 
 // User profile schemas

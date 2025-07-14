@@ -37,7 +37,7 @@ blogRouter.post('/', async (c: AppContext) => {
       });
     }
     
-    const { title, content, excerpt, categoryId, tags } = result.data;
+    const { title, content, excerpt, categoryId, tags, published } = result.data;
     const authorId = c.get("userId");
     
    
@@ -92,7 +92,7 @@ blogRouter.post('/', async (c: AppContext) => {
         excerpt: excerpt || null,
         authorId,
         slug,
-        published: true,
+        published: typeof published === 'boolean' ? published : true,
         categoryId: categoryId || null,
         tags: tagConnections.length > 0 ? {
           create: tagConnections
@@ -148,7 +148,7 @@ blogRouter.put('/', async (c: AppContext) => {
       });
     }
     
-    const { id, title, content } = result.data;
+    const { id, title, content, published } = result.data;
     const userId = c.get("userId");
     
     // Check if blog exists and user owns it
@@ -185,7 +185,8 @@ blogRouter.put('/', async (c: AppContext) => {
       where: { id },
       data: {
         title,
-        content
+        content,
+        ...(typeof published === 'boolean' ? { published } : {})
       },
       select: {
         id: true,

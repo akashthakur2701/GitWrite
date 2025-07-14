@@ -73,6 +73,12 @@ export const Publish = () => {
   const handlePublish = async (saveAsDraft = false) => {
     setErrors({});
     setGeneralError('');
+    // Check for JWT token
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setGeneralError('You must be signed in to publish or save a draft.');
+      return;
+    }
     
     const postData = {
       title: title.trim(),
@@ -94,7 +100,7 @@ export const Publish = () => {
 
     try {
       setIsPublishing(true);
-
+      console.log("button clicked")
       const response = await apiClient.post<ApiResponse<{ blog: { id: string } }>>(
         '/api/v1/blog',
         postData
